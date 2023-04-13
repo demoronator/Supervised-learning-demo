@@ -1,13 +1,13 @@
 import flask
 import joblib
-import json
 import pandas as pd
+from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score
 from data_loder import DataLoader
-from models import *
+from models import RandomForestEmander, HistGradientBoostingWonyoung, LogisticRegressionUtku, SupportVectorClassifierNilkanth
+
 
 app = flask.Flask(__name__)
 app.secret_key = "COMP247"
-
 data_loader = DataLoader()
 clfs = {}
 
@@ -62,7 +62,7 @@ def train():
     print("Done")
 
     value_by_feature = data_loader.get_unique_values_by_features()
-    dump = json.dumps(value_by_feature)
+    dump = flask.json.dumps(value_by_feature)
     return dump, 200
 
 
