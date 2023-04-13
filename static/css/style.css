@@ -1,0 +1,31 @@
+.log-area {
+    margin-top: 50px;
+}
+
+#log-pre {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 12px;
+    height: 200px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+/* Add margin to top and bottom of button area */
+.button-area {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/* Add margin to top of input area */
+div {
+	margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+label {
+    display: inline-block;
+    min-width: 120px;
+}
