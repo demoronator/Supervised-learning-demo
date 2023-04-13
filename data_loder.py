@@ -109,9 +109,9 @@ class DataLoader:
 
         X_transformed = preprocessor.fit_transform(X)
 
-        # Split the data into 30% test and 70% training
+        # Split the data into 10% test and 90% training
         X_train, X_test, y_train, y_test = train_test_split(
-            X_transformed, y, test_size=0.3, stratify=y, random_state=13)
+            X_transformed, y, test_size=0.1, stratify=y, random_state=13)
 
         # Use Random Forest's Feature Importance to select the important features
         forest = RandomForestClassifier(
@@ -164,9 +164,9 @@ class DataLoader:
         df_group8_feature_selected_transformed = preprocessor.fit_transform(
             df_group8_feature_selected)
 
-        # Split the data into 20% test and 80% training
+        # Split the data into 10% test and 90% training
         X_train, X_test, y_train, y_test = train_test_split(
-            df_group8_feature_selected_transformed, y, test_size=0.2, stratify=y, random_state=13)
+            df_group8_feature_selected_transformed, y, test_size=0.1, stratify=y, random_state=13)
 
         # Address the imbalance of classes
         oversampler = SMOTE()
