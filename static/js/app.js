@@ -76,6 +76,8 @@ function trainModels() {
             // Enable button
             $("#predict-btn").prop("disabled", false);
             $("#test-btn").prop("disabled", false);
+
+            showInputArea();
         }
     });
 }
