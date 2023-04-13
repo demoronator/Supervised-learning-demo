@@ -24,8 +24,8 @@ function trainModels() {
             $("#input-form").empty();
 
             Object.keys(valueByFeature).forEach(function (featureName) {
-                var featureValues = valueByFeature[featureName];
-                var div = $("<div></div>");
+                const featureValues = valueByFeature[featureName];
+                const div = $("<div></div>");
                 if (featureValues.length == 2 && $.isNumeric(featureValues[0]) && $.isNumeric(featureValues[1])) {
                     // Create range input for numeric features
                     div.append($(
@@ -107,7 +107,7 @@ function showInputArea() {
 
 function makePredictions() {
     // Get input data from form
-    var inputData = {};
+    const inputData = {};
     $("#input-form :input").each(function () {
         if ($(this).is(":checkbox")) {
             inputData[$(this).attr("name")] = $(this).is(":checked") ? 1 : 0;
@@ -140,16 +140,16 @@ function makePredictions() {
 
 function randomizeFeatures() {
     // Get all input fields in the form
-    var inputFields = $("#input-form").find("input, select");
+    const inputFields = $("#input-form").find("input, select");
 
     // Loop through input fields
     inputFields.each(function () {
         // Check if input field is a range input
         if ($(this).is("input[type='range']")) {
             // Generate random value between min and max values
-            var minVal = parseFloat($(this).attr("min"));
-            var maxVal = parseFloat($(this).attr("max"));
-            var randVal = Math.random() * (maxVal - minVal) + minVal;
+            const minVal = parseFloat($(this).attr("min"));
+            const maxVal = parseFloat($(this).attr("max"));
+            const randVal = Math.random() * (maxVal - minVal) + minVal;
             randVal = randVal.toFixed(1);
 
             // Set input field value to random value
@@ -158,21 +158,14 @@ function randomizeFeatures() {
         // Check if input field is a select input
         else if ($(this).is("select")) {
             // Get all option values for select input
-            var optionValues = $(this).find("option").map(function () {
+            const optionValues = $(this).find("option").map(function () {
                 return $(this).val();
             }).get();
 
             // Get random option value and set select input value to it
-            var randIndex = Math.floor(Math.random() * optionValues.length);
-            var randValue = optionValues[randIndex];
+            const randIndex = Math.floor(Math.random() * optionValues.length);
+            const randValue = optionValues[randIndex];
             $(this).val(randValue);
         }
     });
-
-    /*
-    // Append success message to log area
-    $("#log-pre").append("Input fields randomized.\n");
-    // Scroll to bottom of log area
-    $("#log-pre").scrollTop($("#log-pre")[0].scrollHeight);
-    */
 }

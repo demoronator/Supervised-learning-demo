@@ -93,12 +93,15 @@ def test():
     for model_name, clf in clfs.items():
         msg += "Testing " + model_name + "\n"
         y_pred = clf.predict(X_test)
-        
+
         msg += "Accuracy: {}\n".format(accuracy_score(y_test, y_pred))
-        msg += "Precision: {}\n".format(precision_score(y_test, y_pred, average="weighted"))
-        msg += "Recall: {}\n".format(recall_score(y_test, y_pred, average="weighted"))
+        msg += "Precision: {}\n".format(precision_score(y_test,
+                                        y_pred, average="weighted"))
+        msg += "Recall: {}\n".format(recall_score(y_test,
+                                     y_pred, average="weighted"))
         msg += "F1: {}\n".format(f1_score(y_test, y_pred, average="weighted"))
-        msg += "Confusion matrix:\n{}\n\n".format(confusion_matrix(y_test, y_pred))
+        msg += "Confusion matrix:\n{}\n\n".format(
+            confusion_matrix(y_test, y_pred))
 
     return msg, 200
 
