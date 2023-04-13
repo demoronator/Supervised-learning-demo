@@ -77,7 +77,7 @@ class DataLoader:
             'INJURY',  # Rather result than feature
             'FATAL_NO',  # Rather result than feature. Unique
         ]
-        df_group8 = df_group8.drop(columns=columns_to_remove)
+        df_group8.drop(columns=columns_to_remove, inplace=True)
 
         # Remove rows with missing values in the target column
         df_group8.dropna(subset=['ACCLASS'], inplace=True)
