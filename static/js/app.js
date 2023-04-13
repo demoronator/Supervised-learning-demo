@@ -149,8 +149,7 @@ function randomizeFeatures() {
             // Generate random value between min and max values
             const minVal = parseFloat($(this).attr("min"));
             const maxVal = parseFloat($(this).attr("max"));
-            const randVal = Math.random() * (maxVal - minVal) + minVal;
-            randVal = randVal.toFixed(1);
+            const randVal = (Math.random() * (maxVal - minVal) + minVal).toFixed(1);
 
             // Set input field value to random value
             $(this).val(randVal);
