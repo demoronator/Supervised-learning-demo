@@ -1,13 +1,15 @@
 import flask
 import joblib
+import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score
+from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score, roc_curve
 from data_loder import DataLoader
 from models import RandomForestEmander, HistGradientBoostingWonyoung, LogisticRegressionUtku, SupportVectorClassifierNilkanth
 
 
 app = flask.Flask(__name__)
 app.secret_key = "COMP247"
+plt.switch_backend("agg")
 data_loader = DataLoader()
 clfs = {}
 
@@ -102,6 +104,18 @@ def test():
         msg += "F1: {}\n".format(f1_score(y_test, y_pred, average="weighted"))
         msg += "Confusion matrix:\n{}\n\n".format(
             confusion_matrix(y_test, y_pred))
+
+        # Save ROC curve
+        y_pred_proba = clf.predict_proba(X_test)[:, 1]
+        fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
+        plt.plot([0, 1], [0, 1], "k--")
+        plt.plot(fpr, tpr, label=model_name)
+        plt.xlabel("False Positive Rate")
+        plt.ylabel("True Positive Rate")
+        plt.title("ROC Curve")
+        plt.legend(loc="best")
+        plt.savefig("ROC_" + model_name + ".png")
+        plt.clf()
 
     return msg, 200
 

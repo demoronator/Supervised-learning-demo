@@ -43,7 +43,7 @@ class RandomForestEmander:
         print('Best score:', random_search.best_score_)
         print('Best Estimator:', random_search.best_estimator_)
 
-        self.best_estimator = random_search.best_estimator_
+        self.best_estimator: RandomForestClassifier = random_search.best_estimator_
 
     def test(self, X_test, y_test):
         # ### Random Forest Classifier Testing the model - Emander
@@ -59,6 +59,9 @@ class RandomForestEmander:
 
     def predict(self, X):
         return self.best_estimator.predict(X)
+
+    def predict_proba(self, X):
+        return self.best_estimator.predict_proba(X)
 
 
 class HistGradientBoostingWonyoung:
@@ -88,7 +91,7 @@ class HistGradientBoostingWonyoung:
             verbose=3,
         )
         random_search.fit(X_train, y_train)
-        self.hgb = random_search.best_estimator_
+        self.hgb: HistGradientBoostingClassifier = random_search.best_estimator_
         print(f"Best parameters: {random_search.best_params_}")
 
     def test(self, X_test, y_test):
@@ -106,6 +109,9 @@ class HistGradientBoostingWonyoung:
 
     def predict(self, X):
         return self.hgb.predict(X)
+
+    def predict_proba(self, X):
+        return self.hgb.predict_proba(X)
 
 
 class LogisticRegressionUtku:
@@ -135,7 +141,7 @@ class LogisticRegressionUtku:
         print("Best parameters found using RandomizedSearchCV: ",
               random_search.best_params_)
 
-        self.best_logreg = random_search.best_estimator_
+        self.best_logreg: LogisticRegression = random_search.best_estimator_
 
     def test(self, X_test, y_test):
         y_pred = self.best_logreg.predict(X_test)
@@ -144,6 +150,9 @@ class LogisticRegressionUtku:
 
     def predict(self, X):
         return self.best_logreg.predict(X)
+
+    def predict_proba(self, X):
+        return self.best_logreg.predict_proba(X)
 
 
 class SupportVectorClassifierNilkanth:
@@ -174,7 +183,7 @@ class SupportVectorClassifierNilkanth:
         print("Best score: ", grid.best_score_)
         # make predictions on the test Nilkanth_data
         # Make predictions on the test data using the best model
-        self.best_model = grid.best_estimator_
+        self.best_model: SVC = grid.best_estimator_
 
     def test(self, X_test, y_test):
         y_pred = self.best_model.predict(X_test)
@@ -186,3 +195,6 @@ class SupportVectorClassifierNilkanth:
 
     def predict(self, X):
         return self.best_model.predict(X)
+
+    def predict_proba(self, X):
+        return self.best_model.predict_proba(X)
