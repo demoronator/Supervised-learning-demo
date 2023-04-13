@@ -80,11 +80,13 @@ class DataLoader:
         df_group8.drop(columns=columns_to_remove, inplace=True)
 
         # Remove rows with missing values in the target column
-        df_group8.dropna(subset=['ACCLASS'], inplace=True)
+        df_group8.dropna(subset=["ACCLASS"], inplace=True)
 
         # Encode
+        ordered_labels = ["Non-Fatal Injury", "Fatal"]
         le = LabelEncoder()
-        df_group8['ACCLASS'] = le.fit_transform(df_group8['ACCLASS'])
+        le.fit(ordered_labels)
+        df_group8["ACCLASS"] = le.transform(df_group8["ACCLASS"])
 
         # Separate the feature and target columns
         X = df_group8.drop('ACCLASS', axis=1)

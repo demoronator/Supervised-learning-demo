@@ -81,7 +81,7 @@ def predict():
     ret = {}
     for model_name, clf in clfs.items():
         pred = clf.predict(x_processed)[0]
-        ret[model_name] = "Non-Fatal" if pred == 1 else "Fatal"
+        ret[model_name] = "Non-Fatal" if pred == 0 else "Fatal"
 
     return ret, 200
 
