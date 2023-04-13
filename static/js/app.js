@@ -1,9 +1,10 @@
-$(document).ready(function () {
-    // Attach click event handlers to buttons
-    $("#train-btn").on("click", trainModels);
-    $("#predict-btn").on("click", makePredictions);
-    // Disable second predict button initially
-    $("#predict-btn").prop("disabled", true);
+$(document).on({
+    ajaxStart: function () {
+        $("#loading-indicator").show();
+    },
+    ajaxStop: function () {
+        $("#loading-indicator").hide();
+    }
 });
 
 function trainModels() {
@@ -74,6 +75,28 @@ function trainModels() {
             $("#log-pre").scrollTop($("#log-pre")[0].scrollHeight);
             // Enable button
             $("#predict-btn").prop("disabled", false);
+            $("#test-btn").prop("disabled", false);
+        }
+    });
+}
+
+function testModels() {
+    // Send AJAX request to test models
+    $.ajax({
+        type: "POST",
+        url: "/test",
+        dataType: "text",
+        success: function (response) {
+            // Append success message to log area
+            $("#log-pre").append(response);
+        },
+        error: function (error) {
+            // Append error message to log area
+            $("#log-pre").append("Error testing models: " + error.responseText + "\n");
+        },
+        complete: function () {
+            // Scroll to bottom of log area
+            $("#log-pre").scrollTop($("#log-pre")[0].scrollHeight);
         }
     });
 }

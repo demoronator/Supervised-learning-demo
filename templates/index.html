@@ -13,7 +13,8 @@
 <body>
 	<h1>Group 8</h1>
 	<div class="button-area">
-		<button id="train-btn" type="button" class="btn">Train Models</button>
+		<button id="train-btn" type="button" class="btn" onclick="trainModels()">Train Models</button>
+		<button id="test-btn" type="button" class="btn" onclick="testModels()" disabled>Test Models</button>
 	</div>
 	<div class="log-area">
 		<h2>Log</h2>
@@ -26,6 +27,10 @@
 		</form>
 		<button id="predict-btn" type="button" class="btn" disabled>Make Predictions</button>
 		<button id="randomize-btn" type="button" class="btn" onclick=randomizeFeatures()>I'm Feeling Lucky</button>
+	</div>
+
+	<div id="loading-indicator" hidden>
+		<img src="{{ url_for('static', filename='img/spinner.webp') }}" alt="Loading...">
 	</div>
 </body>
 

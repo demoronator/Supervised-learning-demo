@@ -15,17 +15,29 @@
 
 /* Add margin to top and bottom of button area */
 .button-area {
-	margin-top: 20px;
-	margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 /* Add margin to top of input area */
 div {
-	margin-top: 10px;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
 label {
     display: inline-block;
     min-width: 120px;
+}
+
+#loading-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
 }

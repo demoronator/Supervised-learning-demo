@@ -86,12 +86,21 @@ def predict():
 
 @app.route("/test", methods=["POST"])
 def test():
-    for model_name, clf in clfs.items():
-        print("Testing", model_name)
-        clf.test(data_loader.X_test, data_loader.y_test)
-        print()
+    msg = ""
+    X_test = data_loader.X_test
+    y_test = data_loader.y_test
 
-    return "Done", 200
+    for model_name, clf in clfs.items():
+        msg += "Testing " + model_name + "\n"
+        y_pred = clf.predict(X_test)
+        
+        msg += "Accuracy: {}\n".format(accuracy_score(y_test, y_pred))
+        msg += "Precision: {}\n".format(precision_score(y_test, y_pred, average="weighted"))
+        msg += "Recall: {}\n".format(recall_score(y_test, y_pred, average="weighted"))
+        msg += "F1: {}\n".format(f1_score(y_test, y_pred, average="weighted"))
+        msg += "Confusion matrix:\n{}\n\n".format(confusion_matrix(y_test, y_pred))
+
+    return msg, 200
 
 
 @app.route("/")
