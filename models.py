@@ -8,25 +8,25 @@ from sklearn.svm import SVC
 
 
 class RandomForestEmander:
-    '''
+    """
     Random Forest Classifier - Emander
-    '''
+    """
 
     def train(self, X_train, y_train):
         rfc = RandomForestClassifier(n_estimators=200, random_state=13)
 
         # define the hyperparameter search space
-        param_dist = {'n_estimators': range(10, 300, 20),
-                      'max_depth': range(1, 30, 2),
-                      'max_features': ['sqrt', 'log2', None],
-                      'min_samples_split': range(2, 15, 3),
-                      'min_samples_leaf': range(1, 15, 3)}
+        param_dist = {"n_estimators": range(10, 300, 20),
+                      "max_depth": range(1, 30, 2),
+                      "max_features": ["sqrt", "log2", None],
+                      "min_samples_split": range(2, 15, 3),
+                      "min_samples_leaf": range(1, 15, 3)}
 
         # perform randomized grid search
         random_search = RandomizedSearchCV(
             rfc,
             param_distributions=param_dist,
-            scoring='accuracy',
+            scoring="accuracy",
             cv=10,
             n_iter=25,
             refit=True,
@@ -39,9 +39,9 @@ class RandomForestEmander:
         random_search.fit(X_train, y_train)
 
         # print the best hyperparameters and associated score
-        print('Best hyperparameters:', random_search.best_params_)
-        print('Best score:', random_search.best_score_)
-        print('Best Estimator:', random_search.best_estimator_)
+        print("Best hyperparameters:", random_search.best_params_)
+        print("Best score:", random_search.best_score_)
+        print("Best Estimator:", random_search.best_estimator_)
 
         self.best_estimator: RandomForestClassifier = random_search.best_estimator_
 
@@ -65,9 +65,9 @@ class RandomForestEmander:
 
 
 class HistGradientBoostingWonyoung:
-    '''
+    """
     Histogram-based Gradient Boosting Classifier - Wonyoung
-    '''
+    """
 
     def train(self, X_train, y_train):
         seed_w = 301215136 % 100
@@ -75,15 +75,15 @@ class HistGradientBoostingWonyoung:
         # Perform random search for hyperparameters
         param_dist = {
             "learning_rate": np.linspace(0.01, 1),
-            "l2_regularization": np.linspace(0, 5),
+            "l2_regularization": np.linspace(0, 1),
         }
 
         random_search = RandomizedSearchCV(
             HistGradientBoostingClassifier(
                 # Specify the loss function for imbalanced data
                 scoring="average_precision",
-                random_state=seed_w,
                 max_iter=1000,
+                random_state=seed_w,
             ),
             param_distributions=param_dist,
             n_iter=20, cv=5, random_state=seed_w,
@@ -115,16 +115,16 @@ class HistGradientBoostingWonyoung:
 
 
 class LogisticRegressionUtku:
-    '''
-    Logistic Regression Model  - Utku Emecan
-    '''
+    """
+    Logistic Regression Model - Utku Emecan
+    """
 
     def train(self, X_train, y_train):
         logreg = LogisticRegression(max_iter=100000)
         param_grid = {
-            'C': [0.001, 0.01, 0.1, 1, 10, 100],
-            'penalty': ['l1'],
-            'solver': ['saga'],
+            "C": [0.001, 0.01, 0.1, 1, 10, 100],
+            "penalty": ["l1"],
+            "solver": ["saga"],
         }
 
         grid_search = GridSearchCV(
@@ -156,22 +156,22 @@ class LogisticRegressionUtku:
 
 
 class SupportVectorClassifierNilkanth:
-    '''
+    """
     Support Vector Classifier - Nilkanth
-    '''
+    """
 
     def train(self, X_train, y_train):
         # define base classifier
-        base_svm = SVC(kernel='linear')
+        base_svm = SVC(kernel="linear")
         # create an ensemble of SVM classifiers using bagging
         ensemble_svm = BaggingClassifier(
             estimator=base_svm, n_estimators=10, random_state=64)
 
         param_grid = {
-            'estimator__C': [0.1, 1, 10],
-            # 'n_estimators': [5, 10, 15],
-            # 'max_samples': [0.5, 0.7, 1.0],
-            'max_features': [0.5]  # [0.5, 0.7, 1.0],
+            "estimator__C": [0.1, 1, 10],
+            # "n_estimators": [5, 10, 15],
+            # "max_samples": [0.5, 0.7, 1.0],
+            "max_features": [0.5]  # [0.5, 0.7, 1.0],
         }
 
         grid = GridSearchCV(ensemble_svm, param_grid, verbose=3, n_jobs=-1)
@@ -191,7 +191,7 @@ class SupportVectorClassifierNilkanth:
         # Evaluate the performance of the classifier
         report = classification_report(y_test, y_pred)
         print(report)
-        print('Accuracy score: ', accuracy_score(y_test, y_pred))
+        print("Accuracy score: ", accuracy_score(y_test, y_pred))
 
     def predict(self, X):
         return self.best_model.predict(X)
