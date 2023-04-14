@@ -75,18 +75,18 @@ class HistGradientBoostingWonyoung:
         # Perform random search for hyperparameters
         param_dist = {
             "learning_rate": np.linspace(0.01, 1),
-            "min_samples_leaf": randint(1, 10),
-            "l2_regularization": np.linspace(0, 1),
+            "l2_regularization": np.linspace(0, 5),
         }
 
         random_search = RandomizedSearchCV(
             HistGradientBoostingClassifier(
                 # Specify the loss function for imbalanced data
                 scoring="average_precision",
-                random_state=seed_w
+                random_state=seed_w,
+                max_iter=1000,
             ),
             param_distributions=param_dist,
-            n_iter=20, cv=10, random_state=seed_w,
+            n_iter=20, cv=5, random_state=seed_w,
             n_jobs=-1,
             verbose=3,
         )
