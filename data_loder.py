@@ -114,7 +114,7 @@ class DataLoader:
 
         # Use Random Forest's Feature Importance to select the important features
         forest = RandomForestClassifier(
-            random_state=13, n_jobs=6, class_weight="balanced")
+            random_state=13, n_jobs=-2, class_weight="balanced")
         forest.fit(X_train, y_train)
 
         importances = forest.feature_importances_

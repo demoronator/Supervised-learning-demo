@@ -32,7 +32,7 @@ class RandomForestEmander:
             refit=True,
             verbose=3,
             random_state=15,
-            n_jobs=-1,
+            n_jobs=-2,
         )
 
         # fit the search to the data
@@ -87,7 +87,7 @@ class HistGradientBoostingWonyoung:
             ),
             param_distributions=param_dist,
             n_iter=20, cv=5, random_state=seed_w,
-            n_jobs=-1,
+            n_jobs=-2,
             verbose=3,
         )
         random_search.fit(X_train, y_train)
@@ -128,14 +128,14 @@ class LogisticRegressionUtku:
         }
 
         grid_search = GridSearchCV(
-            logreg, param_grid, cv=10, n_jobs=-1, verbose=3)
+            logreg, param_grid, cv=10, n_jobs=-2, verbose=3)
         grid_search.fit(X_train, y_train)
 
         print("Best parameters found using GridSearchCV: ",
               grid_search.best_params_)
 
         random_search = RandomizedSearchCV(
-            logreg, param_grid, n_iter=10, cv=10, n_jobs=-1)
+            logreg, param_grid, n_iter=10, cv=10, n_jobs=-2)
         random_search.fit(X_train, y_train)
 
         print("Best parameters found using RandomizedSearchCV: ",
@@ -174,7 +174,7 @@ class SupportVectorClassifierNilkanth:
             "max_features": [0.5]  # [0.5, 0.7, 1.0],
         }
 
-        grid = GridSearchCV(ensemble_svm, param_grid, verbose=3, n_jobs=-1)
+        grid = GridSearchCV(ensemble_svm, param_grid, verbose=3, n_jobs=-2)
 
         # train the ensemble SVM classifier on the training Nilkanth_data
         grid.fit(X_train, y_train)
