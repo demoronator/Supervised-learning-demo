@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import MinMaxScaler, OrdinalEncoder, LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import MinMaxScaler, OrdinalEncoder, OneHotEncoder
 
 
 class DataLoader:
@@ -83,10 +83,7 @@ class DataLoader:
         df_group8.dropna(subset=["ACCLASS"], inplace=True)
 
         # Encode
-        ordered_labels = ["Non-Fatal Injury", "Fatal"]
-        le = LabelEncoder()
-        le.fit(ordered_labels)
-        df_group8["ACCLASS"] = le.transform(df_group8["ACCLASS"])
+        df_group8["ACCLASS"].replace({"Fatal": 1, "Non-Fatal Injury": 0}, inplace=True)
 
         # Separate the feature and target columns
         X = df_group8.drop('ACCLASS', axis=1)
