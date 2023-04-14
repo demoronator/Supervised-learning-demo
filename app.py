@@ -113,7 +113,7 @@ def test():
         plt.xlabel("False Positive Rate")
         plt.ylabel("True Positive Rate")
         plt.title("ROC Curve")
-        plt.legend(loc="best")
+        plt.legend(loc="lower right")
         plt.savefig("ROC_" + model_name + ".png")
         plt.clf()
 
@@ -122,4 +122,4 @@ def test():
 
 @app.route("/")
 def index():
-    return flask.render_template("index.html")
+    return flask.render_template("index.html"), 200
