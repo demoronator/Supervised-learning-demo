@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score, roc_curve
 from data_loder import DataLoader
-from models import RandomForestEmander, HistGradientBoostingWonyoung, LogisticRegressionUtku, SupportVectorClassifierNilkanth
+from models import RandomForestCLF, HistGradientBoostingCLF, LogisticRegressionCLF, SupportVectorClassifierCLF
 
 
 app = flask.Flask(__name__)
@@ -23,44 +23,44 @@ def train():
     try:
         rf = joblib.load("rf.pkl")
     except:
-        rf = RandomForestEmander()
+        rf = RandomForestCLF()
         rf.train(data_loader.X_train_oversampled,
                  data_loader.y_train_oversampled)
         joblib.dump(rf, "rf.pkl")
-    clfs["RandomForest-Emander"] = rf
+    clfs["RandomForest"] = rf
     print("Done")
 
     print("Preparing HGB model")
     try:
         hgb = joblib.load("hgb.pkl")
     except:
-        hgb = HistGradientBoostingWonyoung()
+        hgb = HistGradientBoostingCLF()
         hgb.train(data_loader.X_train_oversampled,
                   data_loader.y_train_oversampled)
         joblib.dump(hgb, "hgb.pkl")
-    clfs["HistGradientBoosting-Wonyoung"] = hgb
+    clfs["HistGradientBoosting"] = hgb
     print("Done")
 
     print("Preparing LR model")
     try:
         lr = joblib.load("lr.pkl")
     except:
-        lr = LogisticRegressionUtku()
+        lr = LogisticRegressionCLF()
         lr.train(data_loader.X_train_oversampled,
                  data_loader.y_train_oversampled)
         joblib.dump(lr, "lr.pkl")
-    clfs["LogisticRegression-Utku"] = lr
+    clfs["LogisticRegression"] = lr
     print("Done")
 
     print("Preparing SVM model")
     try:
         svm = joblib.load("svm.pkl")
     except:
-        svm = SupportVectorClassifierNilkanth()
+        svm = SupportVectorClassifierCLF()
         svm.train(data_loader.X_train_oversampled,
                   data_loader.y_train_oversampled)
         joblib.dump(svm, "svm.pkl")
-    clfs["SVM With Bagging-Nilkanth"] = svm
+    clfs["SVM With Bagging"] = svm
     print("Done")
 
     value_by_feature = data_loader.get_unique_values_by_features()

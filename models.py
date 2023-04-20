@@ -7,9 +7,9 @@ from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from sklearn.svm import SVC
 
 
-class RandomForestEmander:
+class RandomForestCLF:
     """
-    Random Forest Classifier - Emander
+    Random Forest Classifier
     """
 
     def train(self, X_train, y_train):
@@ -46,7 +46,7 @@ class RandomForestEmander:
         self.best_estimator: RandomForestClassifier = random_search.best_estimator_
 
     def test(self, X_test, y_test):
-        # ### Random Forest Classifier Testing the model - Emander
+        # ### Random Forest Classifier Testing the model
         rfc_predict_fine_tuned = self.best_estimator.predict(X_test)
 
         print("Accuracy score:", accuracy_score(
@@ -64,9 +64,9 @@ class RandomForestEmander:
         return self.best_estimator.predict_proba(X)
 
 
-class HistGradientBoostingWonyoung:
+class HistGradientBoostingCLF:
     """
-    Histogram-based Gradient Boosting Classifier - Wonyoung
+    Histogram-based Gradient Boosting Classifier
     """
 
     def train(self, X_train, y_train):
@@ -114,9 +114,9 @@ class HistGradientBoostingWonyoung:
         return self.hgb.predict_proba(X)
 
 
-class LogisticRegressionUtku:
+class LogisticRegressionCLF:
     """
-    Logistic Regression Model - Utku Emecan
+    Logistic Regression Model
     """
 
     def train(self, X_train, y_train):
@@ -155,9 +155,9 @@ class LogisticRegressionUtku:
         return self.best_logreg.predict_proba(X)
 
 
-class SupportVectorClassifierNilkanth:
+class SupportVectorClassifierCLF:
     """
-    Support Vector Classifier - Nilkanth
+    Support Vector Classifier
     """
 
     def train(self, X_train, y_train):
@@ -176,12 +176,11 @@ class SupportVectorClassifierNilkanth:
 
         grid = GridSearchCV(ensemble_svm, param_grid, verbose=3, n_jobs=-2)
 
-        # train the ensemble SVM classifier on the training Nilkanth_data
+        # train the ensemble SVM classifier on the training data
         grid.fit(X_train, y_train)
         # Print the best parameters and score
         print("Best parameters: ", grid.best_params_)
         print("Best score: ", grid.best_score_)
-        # make predictions on the test Nilkanth_data
         # Make predictions on the test data using the best model
         self.best_model: SVC = grid.best_estimator_
 
